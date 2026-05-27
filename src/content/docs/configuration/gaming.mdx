@@ -8,7 +8,7 @@ tableOfContents:
 
 import ImageComponent from '~/components/image-component.astro';
 import MultipleImageComponent from '~/components/multiple-images-component.astro';
-import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps, LinkButton, Icons } from '@astrojs/starlight/components';
 
 Welcome to the guide for Gaming on CachyOS. This will guide you through the essential aspects on how to set everything up for gaming.
 
@@ -114,6 +114,22 @@ In this case, everything after the first `%command%` is going to be ignored beca
 :::
 
 #### Environment Variables
+:::note
+Custom protons have unstable configuration options by their nature. For the latest information on their respective configuration options refer to their documentation.
+
+Links to Proton-CachyOS documents:
+
+<LinkButton icon="external" href="https://github.com/CachyOS/proton-cachyos/blob/cachyos_main/README.md#proton-cachyos-config-options">Readme</LinkButton>
+<LinkButton icon="external" href="https://github.com/CachyOS/proton-cachyos/blob/cachyos_main/CHANGELOG.md">Changelog</LinkButton>
+
+Links to Proton-EM documents:
+
+<LinkButton icon="external" href="https://github.com/Etaash-mathamsetty/Proton/blob/em-11-hdr/README.md">Readme</LinkButton>
+<LinkButton icon="external" href="https://github.com/Etaash-mathamsetty/Proton/blob/em-10-hdrtest/docs/EM-ADDITIONS.md">EM-ADDITIONS</LinkButton>
+<LinkButton icon="external" href="https://github.com/Etaash-mathamsetty/Proton/blob/em-10-hdrtest/docs/FSR4.md">FSR4</LinkButton>
+<LinkButton icon="external" href="https://github.com/Etaash-mathamsetty/Proton/blob/em-10-hdrtest/docs/CHANGES.md">Winewayland</LinkButton>
+
+:::
 
 <Tabs>
 <TabItem label="Graphics & Upscaling">
@@ -145,13 +161,15 @@ In this case, everything after the first `%command%` is going to be ignored beca
 - Wayland & Display
     - `PROTON_ENABLE_WAYLAND=1`: Enable native Wayland support.
       - **Benefits**: Allows HDR without Gamescope; improves latency/frame pacing
-      - **Caveats**: Breaks Steam Overlay, currently experimental
+      - **Caveats**: Breaks Steam Overlay and Steam Input, currently experimental. For more information visit
+      **[Proton wayland quirks](https://github.com/CachyOS/proton-cachyos?tab=readme-ov-file#proton-wayland-quirks)**
     - `PROTON_NO_WM_DECORATION=1`: Disable window manager decorations.
       - **Fixes**: Borderless fullscreen issues, mouse clicking through windows
 
 - HDR Support
-    - `PROTON_ENABLE_HDR=1`: Enable HDR output support.
-      - **Requirements**: Gamescope with `--hdr-enabled` OR `PROTON_ENABLE_WAYLAND=1`.
+    - `DXVK_HDR=1`: Enable HDR output support.
+      - Users of NVIDIA drivers **before** 595.58.03 will also need to install [`vk-hdr-layer-kwin6-git`](https://packages.cachyos.org/package/cachyos/x86_64/vk-hdr-layer-kwin6-git) with `pacman -S vk-hdr-layer-kwin6-git` and set `ENABLE_HDR_WSI=1`
+      - **Requirements**: Gamescope with `--hdr-enabled` OR `PROTON_ENABLE_WAYLAND=1`
       - **Setup**: [Additional configuration needed](https://wiki.archlinux.org/title/HDR_monitor_support)
 
 </TabItem>
@@ -512,7 +530,7 @@ Lutris is a game launcher on CachyOS. With Lutris, you can easily manage your ga
 
 - Launch options such as `-dx11` or `-fullscreen` should be added in the **Arguments** field under the **Game options** tab using a space as a separator.
 - Command wrappers, for example `mangohud --dlsym` or `game-performance`, should be added in the **Command prefix** field under the **System options** tab using a space as a separator.
-- Environment variables such as `PROTON_ENABLE_HDR=1` should be added in the **Environment variables** table under the **System options** tab using the `+` button to add a new entry.
+- Environment variables such as `DXVK_HDR=1` should be added in the **Environment variables** table under the **System options** tab using the `+` button to add a new entry.
 :::note
 Do not include `=` in the Key field. It should only contain the variable name.
 :::

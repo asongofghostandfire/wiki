@@ -205,6 +205,12 @@ starlight-tabs {
   }
 }
 
+/* Note blocks */
+
+.starlight-aside--note .sl-link-button {
+  @apply mr-1 mt-1 mb-1 text-white p-2 bg-[#17394f] border-[#174f2d];
+}
+
 [data-theme='light'] {
   #starlight__sidebar {
     /* Left sidebar */
