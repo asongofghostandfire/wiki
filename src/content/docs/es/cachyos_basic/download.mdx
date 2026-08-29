@@ -19,9 +19,9 @@ La ISO de CachyOS puede obtenerse de las siguientes fuentes:
 Siempre tome el paso adicional de verificar la integridad de la ISO para evitar cualquier problema no deseado en la instalación o al crear un medio de arranque.
 :::
 
-**Versión Actual de la ISO:** `260426`
+**Versión Actual de la ISO:** `260809`
 
-**Hash SHA256:** `9a280d1e9732cfe50ab02db6a7e44ae0d9e6a10e6ea394f73192f7c14e263118`
+**Hash SHA256:** `959f6577f45e25ee9fd8c220fd221b08e4ea79412c7315c0f922dd6d86d5e33c`
 
 <Tabs>
 
@@ -29,12 +29,12 @@ Siempre tome el paso adicional de verificar la integridad de la ISO para evitar 
 
 <Steps>
 
-1. Descargue el [archivo](https://mirror.cachyos.org/ISO/desktop/260426/cachyos-desktop-linux-260426.iso.sha256) que contiene el hash SHA256 **(Ábralo con un editor de texto, p. ej., Bloc de notas).**
+1. Descargue el [archivo](https://mirror.cachyos.org/ISO/desktop/260809/cachyos-desktop-linux-260809.iso.sha256) que contiene el hash SHA256 **(Ábralo con un editor de texto, p. ej., Bloc de notas).**
 2. Abra CMD o PowerShell como Administrador y [navegue](<https://www.wikihow.com/Change-Directories-in-Command-Prompt>) a la ruta donde se almacenan los archivos ISO y SHA256.
 3. Ejecute el siguiente comando:
    ```powershell
    # Ejemplo:
-   certUtil -hashfile cachyos-desktop-linux-260426.iso SHA256
+   certUtil -hashfile cachyos-desktop-linux-260809.iso SHA256
    ```
 4. Compare la salida del hash de certUtil con la del archivo descargado en el **Paso 1**. Si coinciden, puede proceder con la instalación de CachyOS.
 
@@ -46,18 +46,18 @@ Siempre tome el paso adicional de verificar la integridad de la ISO para evitar 
 
 <Steps>
 
-1. Descargue el [archivo](https://mirror.cachyos.org/ISO/desktop/260426/cachyos-desktop-linux-260426.iso.sha256) que contiene el hash SHA256.
+1. Descargue el [archivo](https://mirror.cachyos.org/ISO/desktop/260809/cachyos-desktop-linux-260809.iso.sha256) que contiene el hash SHA256.
 2. Abra una terminal, navegue al directorio que contiene el archivo `.sha256` y ejecute los siguientes comandos:
    ```sh
    # Ejemplo:
    cd Downloads/
-   cat cachyos-desktop-linux-260426.iso.sha256
-   # 9a280d1e9732cfe50ab02db6a7e44ae0d9e6a10e6ea394f73192f7c14e263118
+   cat cachyos-desktop-linux-260809.iso.sha256
+   # 959f6577f45e25ee9fd8c220fd221b08e4ea79412c7315c0f922dd6d86d5e33c
    ```
 3. Compare la salida del **Paso 2** y ejecute el siguiente comando para verificar el hash del archivo ISO:
    ```sh
    # Ejemplo:
-   sha256sum cachyos-desktop-linux-260426.iso
+   sha256sum cachyos-desktop-linux-260809.iso
    ```
 4. Si los hashes del **Paso 2** y el **Paso 3** coinciden, puede proceder con la instalación de CachyOS.
 
@@ -69,18 +69,18 @@ Siempre tome el paso adicional de verificar la integridad de la ISO para evitar 
 
 <Steps>
 
-1. Descargue el [archivo](https://mirror.cachyos.org/ISO/desktop/260426/cachyos-desktop-linux-260426.iso.sha256) que contiene el hash SHA256.
+1. Descargue el [archivo](https://mirror.cachyos.org/ISO/desktop/260809/cachyos-desktop-linux-260809.iso.sha256) que contiene el hash SHA256.
 2. Abra una terminal, navegue al directorio que contiene el archivo `.sha256` y ejecute los siguientes comandos:
    ```sh
    # Ejemplo:
    cd Downloads/
-   cat cachyos-desktop-linux-260426.iso.sha256
-   # 9a280d1e9732cfe50ab02db6a7e44ae0d9e6a10e6ea394f73192f7c14e263118
+   cat cachyos-desktop-linux-260809.iso.sha256
+   # 959f6577f45e25ee9fd8c220fd221b08e4ea79412c7315c0f922dd6d86d5e33c
    ```
 3. Compare la salida del **Paso 2** y ejecute el siguiente comando para verificar el hash del archivo ISO:
    ```sh
    # Ejemplo:
-   shasum -a 256 cachyos-desktop-linux-260426.iso
+   shasum -a 256 cachyos-desktop-linux-260809.iso
    ```
 4. Si los hashes del **Paso 2** y el **Paso 3** coinciden, puede proceder con la instalación de CachyOS.
 
@@ -102,14 +102,14 @@ Para verificar la autenticidad del archivo ISO y asegurarse de que es el oficial
    gpg --keyserver hkps://keys.openpgp.org --recv-key F3B607488DB35A47
    ```
 
-2. Descargue el archivo ISO y su archivo de firma [.sig](https://cdn77.cachyos.org/ISO/desktop/260426/cachyos-desktop-linux-260426.iso.sig) y ejecute el siguiente comando (reemplazando `nombre_completo_iso.iso` con el nombre real del archivo ISO):
+2. Descargue el archivo ISO y su archivo de firma [.sig](https://cdn77.cachyos.org/ISO/desktop/260809/cachyos-desktop-linux-260809.iso.sig) y ejecute el siguiente comando (reemplazando `nombre_completo_iso.iso` con el nombre real del archivo ISO):
    ```shell
    gpg --verify nombre_completo_iso.iso.sig nombre_completo_iso.iso
    ```
 
    Si obtiene una salida de **Good signature** (Firma correcta), el archivo ISO es genuino:
    ```
-   gpg: Signature made dom 08 mar 2026 10:39:18 -03
+   gpg: Signature made dom 09 ago 2026 13:30:06 -03
    gpg:                using RSA key 882DCFE48E2051D48E2562ABF3B607488DB35A47
    gpg: Good signature from "CachyOS <admin@cachyos.org>" [unknown]
    gpg: WARNING: This key is not certified with a trusted signature!

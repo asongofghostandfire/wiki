@@ -4,6 +4,7 @@ description: Вспомогательный инструмент для упро
 tableOfContents:
   minHeadingLevel: 1
   maxHeadingLevel: 4
+ai_translated: true
 ---
 
 import {Tabs, TabItem, Steps } from '@astrojs/starlight/components';
@@ -113,6 +114,9 @@ cachy-chroot поддерживает монтирование практиче�
     Теперь вы можете выполнять команды так, как если бы вы загрузились в установленную систему. Например, вы можете обновить систему с помощью:
     ```bash title="Обновление системы в chroot"
     pacman -Syu
+    ```
+    ```bash title="Пересоздание initramfs на всякий случай"
+    mkinitcpio -P
     ```
     или выполнять другие задачи по обслуживанию по мере необходимости.
 8. По завершении выйдите из chroot-окружения, введя `exit` в командной строке или нажав `CTRL+D` на клавиатуре.

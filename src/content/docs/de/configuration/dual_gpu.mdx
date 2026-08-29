@@ -106,6 +106,12 @@ prime-run %command%
 Achte darauf, `%command%` nach `prime-run` hinzuzufügen. Denk dran, dass Spieloptionen nach dem Platzhalter kommen,
 während Systemumgebungsvariablen oder Befehle davor stehen sollten.
 
+Um ein Spiel mit der integrierten Grafik laufen zu lassen, kannst du die folgende Launch Option als ein Beispiel für eine Radeon iGPU benutzen. Der Vorteil ist, dass du bei Spielen mit niedrigen Grafikanforderungen eine längere Batterielaufzeit und niedrigere Lüfterlautstärke haben kannst.
+
+```bash
+VK_DRIVER_FILES=/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:/usr/share/vulkan/icd.d/radeon_icd.i686.json %command%
+```
+
 <br />
 <ImageComponent imgsrc={import('~/assets/images/steam-prime.png')} />
 
@@ -152,14 +158,3 @@ die Anwendung über das Symbol startest, wird sie mit der integrierten Grafik an
 Falls sie nicht verfügbar ist, stelle sicher, dass du `switcheroo-control` installiert und
 dessen Dienst aktiviert hast, da alle Desktop-Umgebungen für diese
 Funktionalität darauf angewiesen sind.
-
-## Fehlerbehebung
-
-### "Mein externer Monitor ist bei PRIME sehr laggy"
-
-Das ist ein bekanntes Problem des NVIDIA-Treibers. Du solltest den neuesten NVIDIA-
-Treiber installiert haben und Wayland mit einem Compositor verwenden, der expliziten Sync unterstützt.
-Für GNOME wurde dies in Version 46.2 behoben. Für Plasma 6 wird es wahrscheinlich
-mit 6.1 behoben, obwohl einige Benutzer bereits bei 6.0 von normaler Leistung berichten.
-Andere Umgebungen/Fenstermanager haben dieses Problem immer noch, also musst du auf die
-neueste Version von GNOME oder Plasma wechseln, um es zu beheben.

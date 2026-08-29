@@ -1,6 +1,7 @@
 ---
 title: Пожертвование
 description: Способы нас поддержать
+ai_translated: true
 ---
 
 Если вы хотите поддержать нашу работу, вы можете сделать пожертвование и помочь оплатить наши сборочные серверы.
@@ -14,9 +15,7 @@ description: Способы нас поддержать
 - Почтовый сервер/зеркало: 17 €
 - Сервер форума (Netcup VPS): 7 евро
 
-### Patreon
-
-<https://www.patreon.com/CachyOS>
+### [Patreon](<https://www.patreon.com/CachyOS>)
 
 ### Ethereum
 

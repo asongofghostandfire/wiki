@@ -139,9 +139,9 @@ Erstellt von [firelzrd](https://github.com/firelzrd)
 :::note
 CachyOS enthält den stabilen Zweig von ADIOS im Kernel.
 
-Aktuelle Version in **linux-cachyos**: `3.1.7`
+Aktuelle Version in **linux-cachyos**: `3.2.0`
 
-Aktuelle Version in **linux-cachyos-rc**: `3.1.7`
+Aktuelle Version in **linux-cachyos-rc**: `3.2.0`
 :::
 
 Kurze Einführung aus der README:
@@ -255,19 +255,6 @@ rcutree.enable_rcu_lazy=1
 ```
 
 ## NVIDIA Fehlerbehebung
-
-### SDDM-Wayland-Backend deaktivieren
-
-:::note
-Ab cachyos-kde-settings 4.3 verwendet SDDM standardmäßig KWin als Wayland-Compositor.
-:::
-
-Obwohl dies ein schöner Fortschritt ist, kann es zu einigen Ärgernissen führen, wie z.B. die Beeinträchtigung der Übertaktungsunterstützung mit nvidia-settings oder Inkompatibilität mit älteren GPUs, die unter Wayland Probleme haben.
-
-Um diese Änderung rückgängig zu machen, entferne das cachyos-kde-settings-Paket:
-```sh
-sudo pacman -R cachyos-kde-settings
-```
 
 ### NVIDIA GSP Firmware
 

@@ -3,18 +3,81 @@ title: Nach der Installation
 description: Schritte zur Konfiguration nach der Installation von CachyOS
 tableOfContents:
   minHeadingLevel: 1
-  maxHeadingLevel: 3
+  maxHeadingLevel: 4
 ---
 
-import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps, LinkButton, Icon } from '@astrojs/starlight/components';
+import ImageComponent from '~/components/image-component.astro';
 
-## Das System aktualisieren
+## Empfohlene Schritte nach der Installation
+
+### Das System aktualisieren
 
 :::tip
-Schau dir unbedingt unsere [Sicherheit & bewährte Vorgehensweisen](/de/cachyos_basic/faq#sicherheit--bewährte-praktiken) an, um häufige Fehler zu vermeiden und dein System sicher zu halten.
+Schau dir unbedingt unsere [Sicherheit & bewährte Praktiken](/de/cachyos_basic/faq#sicherheit--bewährte-praktiken) an, um häufige Fehler zu vermeiden und dein System sicher zu halten.
 :::
 
 <Tabs>
+
+<TabItem label="Shelly (GUI & CLI)">
+    <LinkButton icon="external" href="https://www.seafoam-labs.org/shelly-alpm/overview/">Shellys Wiki</LinkButton>
+    <LinkButton icon="external" href="https://www.seafoam-labs.org/shelly-alpm/docs/cli-reference/">Shelly CLI</LinkButton>
+
+    [Shelly](https://github.com/Seafoam-Labs/Shelly-ALPM) ist eine moderne Interpretation des Arch Linux Package Managers, entworfen um eine intuitivere und benutzerfreundlichere Alternative zu Pacman und Octopi zu sein.
+
+    Entwickelt von: [Seafoam-Labs](https://github.com/Seafoam-Labs)
+
+    Erlaubt den Benutzern ihre Pakete zu verwalten ohne das Terminal benutzen zu müssen.
+
+    Features von Shelly sind unter anderem:
+
+    Installieren/Deinstallieren von Paketen vom AUR, offiziellen Repositories, AppImages, Flatpaks und lokalen Paketen, Paket-Details einsehen, Paket Gruppen verwalten und vieles mehr.
+
+    Warum Shelly anstatt Octopi?
+    - Es hat ein moderneres und benutzerfreundlicheres Interface.
+    - Stetige Weiterentwicklung und Updates mit neuen Features und Verbesserungen.
+    - Unterstützt mehr Paket-Formate (AUR, AppImages, Flatpaks, etc.)
+    - Sicherheitsfeatures wie PKGBUILDs-Verifizierung, sieh dir die [Security Checks](https://www.seafoam-labs.org/shelly-alpm/docs/security/) für mehr Informationen an.
+
+    <details>
+        <summary>Shelly Homepage Screenshot</summary>
+        <ImageComponent imgsrc={import('~/assets/images/shelly-homepage.png')} />
+    </details>
+    <details>
+        <summary>Paket Management Tab</summary>
+        <ImageComponent imgsrc={import('~/assets/images/shelly-package-management.png')} />
+    </details>
+    Hier sind einige nützliche Befehle, um mit Shelly's CLI zu starten:
+
+    <details>
+    <summary>Alle Pakete upgraden (AUR, offizielle Repositories, Flatpak, etc.):</summary>
+    ```sh
+    shelly
+    ```
+    </details>
+    <details>
+    <summary>Standard-Pakete upgraden (Arch-Derivate) + Paket installieren:</summary>
+    ```sh
+    shelly install --upgrade {pkg}
+    # Beispiel:
+    shelly install --upgrade discord
+    ```
+    </details>
+    <details>
+    <summary>Paket und Abhängigkeiten entfernen:</summary>
+    ```sh
+    shelly remove {pkg}
+    # Beispiel:
+    shelly remove discord
+    ```
+    </details>
+    <details>
+    <summary>AUR-Paket suchen:</summary>
+    ```sh
+    shelly aur search {pkg}
+    ```
+    </details>
+</TabItem>
 
 <TabItem label="Mit Octopi (GUI)">
 
@@ -182,7 +245,25 @@ Fork von [Arch-Update](https://github.com/Antiz96/arch-update)
 Ein Update-Benachrichtiger & -Anwender für Arch Linux, der dich bei wichtigen Aufgaben vor/nach dem Update unterstützt.
 Enthält ein dynamisches & klickbares Systray-Applet für eine einfache Integration in jede Desktop-Umgebung / jeden Window Manager.
 
-Aktiviere Cachy-Update in CachyOS Hello > Apps/Tweaks > Cachy Update enabled
+<details>
+    <summary>Wie man Cachy-Update aktiviert</summary>
+    Aktiviere Cachy-Update in `CachyOS Hello > Apps/Tweaks > Cachy Update enabled`
+</details>
+<details>
+    <summary>Wie man Cachy-Update deaktiviert</summary>
+        Deaktiviere Cachy-Update in `CachyOS Hello > Apps/Tweaks > Cachy Update disabled`
+            :::tip
+            Wenn du Cachy-Update behalten und nur das Systray-Applet deaktivieren möchtest, öffne ein Terminal und führe die folgenden Befehle aus:
+            ```bash
+            mkdir -p ~/.config/autostart
+            echo -e "[Desktop Entry]\nHidden=true" > ~/.config/autostart/arch-update-tray.desktop
+            ```
+            Wenn du das System-Tray-Applet aktiviert lassen willst und einfach die automatische Update-Prüfung deaktivieren möchtest, führe den folgenden Befehl aus:
+            ```bash
+            systemctl --user disable --now arch-update.timer
+            ```
+            :::
+</details>
 
 - Features:
   - Automatische Überprüfung und Auflistung verfügbarer Updates.
@@ -193,7 +274,7 @@ Aktiviere Cachy-Update in CachyOS Hello > Apps/Tweaks > Cachy Update enabled
   - Überprüfung auf Dienste, die nach einem Upgrade einen Neustart erfordern (und bietet an, dies zu tun, falls vorhanden).
   - Unterstützung für `sudo`, `sudo-rs`, `doas` & `run0`.
 
-**Intervall für die Update-Prüfung:** `Einmal 15 Sekunden nach dem Booten und dann jede Stunde.`
+**Intervall für die Update-Prüfung:** `Einmal zwei Minuten nach dem Booten und dann einmal täglich mit einer einstündigen zufälligen Verzögerung.`
 
 - Wie man das Intervall für die Update-Prüfung ändert:
 
@@ -202,13 +283,16 @@ systemctl --user edit --full arch-update.timer
 # Tipp: Du kannst statt `nano` auch jeden anderen Texteditor deiner Wahl verwenden
 # z.B. EDITOR=micro systemctl --user edit --full arch-update.timer
 ```
-Standardinhalt der Datei:
-```systemd
-[Timer]
-OnStartupSec=15 # Prüfe auf Updates 15 Sekunden nach dem Booten
-OnUnitActiveSec=1h # Prüfe stündlich auf Updates
-```
 
+<details>
+<summary>Standardinhalt der Datei:</summary>
+    ```systemd
+    [Timer]
+    OnStartupSec=2min # Prüfe zwei Minuten nach dem Booten auf Updates
+    RandomizedDelaySec=1h # Einstündige zufällige Verzögerung
+    OnUnitActiveSec=1d # Prüfe einmal täglich auf Updates
+    ```
+</details>
 Im Grunde kannst du den Wert `OnUnitActiveSec` auf alles ändern, was du willst. Wenn du zum Beispiel alle 30 Minuten auf Updates prüfen möchtest, ändere ihn auf `30m`. Oder alle 6 Stunden, ändere ihn auf `6h`. Schau dir dieses [Dokument](https://www.freedesktop.org/software/systemd/man/latest/systemd.time.html#Parsing%20Time%20Spans) an für mehr Details, wie man das Zeitintervall einstellt.
 
 Falls du möchtest, dass Cachy-Update nur einmal beim Booten auf neue Updates prüft, kannst du einfach die Zeile `OnUnitActiveSec` komplett löschen.
@@ -219,7 +303,7 @@ Danke an [Antiz](https://github.com/Antiz96) für die Wartung des Upstream-Proje
 
 </Tabs>
 
-## Firewall konfigurieren (ufw)
+### Firewall konfigurieren (ufw)
 :::note
 UFW ist nach der Installation standardmäßig aktiviert.
 :::
@@ -248,17 +332,27 @@ sudo ufw disable
 Ufw ignoriert standardmäßig eingehenden Traffic und lässt ausgehenden durch. Du kannst aber eigene Regeln zur Firewall hinzufügen, um bestimmte Verbindungen zu blockieren oder zu erlauben.
 
 ```bash
-# Zum Beispiel:
+# Beispiel 1, SSH-Traffic erlauben:
 sudo ufw allow ssh
+# Beispiel 2, Port 12345 für TCP & UDP Traffic öffnen:
+sudo ufw allow 12345
+
+# Text oder Portnummer kann angepasst werden, wie 12345/udp um nur UDP-Traffic zu erlauben oder ssh durch einen Programmnamen zu ersetzen
 ```
 
 </TabItem>
 
 <TabItem label="Verweigern">
 
+Ufw ignoriert standardmäßig eingehenden Traffic und lässt ausgehenden durch. Du kannst aber eigene Regeln zur Firewall hinzufügen, um bestimmte Verbindungen zu blockieren oder zu erlauben.
+
 ```bash
-# Um einen bestimmten Port zu verweigern, schau dir das folgende Beispiel an:
-sudo ufw deny 80
+# Beispiel 1, SSH-Traffic verweigern:
+sudo ufw deny ssh
+# Beispiel 2, Port 12345 für TCP & UDP Traffic schließen:
+sudo ufw deny 12345
+
+# Text oder Portnummer kann angepasst werden, wie 12345/udp um nur UDP-Traffic zu verweigern oder ssh durch einen Programmnamen zu ersetzen
 ```
 
 </TabItem>
@@ -268,7 +362,15 @@ sudo ufw deny 80
 ```bash
 sudo ufw status verbose
 ```
-
+:::tip
+Wenn du nicht vergessen willst, warum du einen Port geöffnet/geschlossen hast, füge einen Kommentar zur Regel hinzu.
+```bash
+# Beispiel 1, Port 12345 für TCP & UDP Traffic mit einem Kommentar öffnen:
+sudo ufw allow 12345 comment 'Beispiel'
+# Beispiel 2, Port 6789 für TCP mit einem Kommentar schließen:
+sudo ufw deny 6789/tcp comment 'Kommentare können Leerzeichen haben'
+```
+:::
 </TabItem>
 
 </Tabs>
@@ -281,61 +383,11 @@ Sei vorsichtig beim Konfigurieren von Firewall-Regeln, da falsch konfigurierte R
 Du kannst sie auch grafisch über den Abschnitt "Firewall" in den KDE Plasma-Einstellungen konfigurieren.
 :::
 
-## WLAN-Regulierungsdomäne konfigurieren
+:::note
+Änderungen an allow/deny treten in Kraft, nachdem ufw neu gestartet wurde. Deaktiviere und aktiviere ufw erneut für sofortige Ergebnisse.
+:::
 
-Das `wireless-regdb`-Paket enthält eine Datenbank mit WLAN-Regeln (erlaubte Frequenzen, Kanäle, Leistungsgrenzen) für verschiedene Länder. Das Festlegen der richtigen Region für deinen Standort kann spezifische WLAN-Kanäle (wie die Kanäle 12/13 oder 5GHz/6GHz-Bänder) freischalten, die standardmäßig möglicherweise eingeschränkt sind, und so helfen, deine WLAN-Leistung und Verbindungsqualität zu verbessern.
-
-**Konfiguration:**
-
-1. Bearbeite die Konfiguration:
-   Öffne `/etc/conf.d/wireless-regdom` mit root-Rechten.
-   ```bash
-   sudo micro /etc/conf.d/wireless-regdom
-   ```
-2. Lege dein Land fest:
-   Entkommentiere die Zeile mit deinem zweibuchstabigen [ISO-Ländercode](https://de.wikipedia.org/wiki/ISO-3166-1-Kodierliste#Offiziell_zugewiesene_Kodierungselemente) (z. B. `WIRELESS_REGDOM="DE"`). Stelle sicher, dass nur ein Land entkommentiert ist.
-3. Neustart:
-   Ein Neustart ist normalerweise erforderlich, damit die Änderung wirksam wird.
-
-**Überprüfung:**
-
-Um die aktuell angewendete Regulierungsdomäne zu überprüfen, verwende diesen Befehl:
-
-```bash
-iw reg get
-global
-country 00: DFS-UNSET # Land 00 verwendet globale Standardwerte
-	(755 - 928 @ 2), (N/A, 20), (N/A), PASSIVE-SCAN
-	(2402 - 2472 @ 40), (N/A, 20), (N/A)
-	(2457 - 2482 @ 20), (N/A, 20), (N/A), AUTO-BW, PASSIVE-SCAN
-	(2474 - 2494 @ 20), (N/A, 20), (N/A), NO-OFDM, PASSIVE-SCAN
-	(5170 - 5250 @ 80), (N/A, 20), (N/A), AUTO-BW, PASSIVE-SCAN
-	(5250 - 5330 @ 80), (N/A, 20), (0 ms), DFS, AUTO-BW, PASSIVE-SCAN
-	(5490 - 5730 @ 160), (N/A, 20), (0 ms), DFS, PASSIVE-SCAN
-	(5735 - 5835 @ 80), (N/A, 20), (N/A), PASSIVE-SCAN
-	(57240 - 63720 @ 2160), (N/A, 0), (N/A)
-```
-
-Suche nach der Zeile `country XX:`, wobei `XX` mit dem von dir festgelegten Code übereinstimmen sollte. Wenn `country 00:` angezeigt wird, verwendet das System möglicherweise Standardeinschränkungen oder hat die Region noch nicht ermittelt.
-
-```bash
-iw reg get
-global
-country US: DFS-FCC # Land wird korrekt als US angezeigt
-	(902 - 904 @ 2), (N/A, 30), (N/A)
-	(904 - 920 @ 16), (N/A, 30), (N/A)
-	(920 - 928 @ 8), (N/A, 30), (N/A)
-	(2400 - 2472 @ 40), (N/A, 30), (N/A)
-	(5150 - 5250 @ 80), (N/A, 23), (N/A), AUTO-BW
-	(5250 - 5350 @ 80), (N/A, 24), (0 ms), DFS, AUTO-BW
-	(5470 - 5730 @ 160), (N/A, 24), (0 ms), DFS
-	(5730 - 5850 @ 80), (N/A, 30), (N/A), AUTO-BW
-	(5850 - 5895 @ 40), (N/A, 27), (N/A), NO-OUTDOOR, AUTO-BW, PASSIVE-SCAN
-	(5925 - 7125 @ 320), (N/A, 12), (N/A), NO-OUTDOOR, PASSIVE-SCAN
-	(57240 - 71000 @ 2160), (N/A, 40), (N/A)
-```
-
-## Globales Menü aktivieren
+### Globales Menü aktivieren
 Bei einigen Apps wie Visual Studio Code funktioniert das globale Menü möglicherweise nicht oder ist an die übergeordnete App statt an das Panel angeheftet.
 
 ```sh
@@ -343,11 +395,145 @@ Bei einigen Apps wie Visual Studio Code funktioniert das globale Menü mögliche
 sudo pacman -S appmenu-gtk-module libdbusmenu-glib
 ```
 
-## AppArmor-Unterstützung mit AppArmor.d-Profilen aktivieren (Optional)
+## Optionale Einstellungen
+
+### Die Standard Shell ändern
+
+Derzeit verwendet CachyOS [fish](https://fishshell.com/) als Standard-Login-Shell des Benutzers. Du kannst jedoch
+die Standard-Shell nach Belieben ändern.
+
+<Tabs>
+   <TabItem label='bash'>
+
+      Dies ist die Standard-Shell auf fast jeder Linux-Distribution. Sie wird auch immer noch als Login-Shell des root-Benutzers verwendet. bash
+      verfügt über grundlegende Autovervollständigungsfunktionen und eine einfache Verlaufsverwaltung. Es unterscheidet sich von zsh und fish dadurch, dass es nicht das ausgefallene Anpassungs- und Plugin-Ökosystem hat, das sowohl fish als auch zsh besitzen.
+
+
+      ```sh title='Ändere deine Standard-Shell auf bash'
+      chsh -s /usr/bin/bash
+      ```
+
+   </TabItem>
+
+   <TabItem label='zsh'>
+
+      Wir bieten eine [zsh-Konfiguration](https://github.com/CachyOS/cachyos-zsh-config) mit häufig verwendeten Plugins und Konfigurationen an.
+      Sie zielt darauf ab, eine 1:1-Funktionalität mit unserer [fish-Konfiguration](https://github.com/CachyOS/cachyos-fish-config) zu haben.
+      Dies ist auch die Standard-Shell, die in MacOS verwendet wird.
+
+      ```sh title='Ändere die Standard-Shell auf zsh'
+      chsh -s /usr/bin/zsh
+      ```
+
+   </TabItem>
+</Tabs>
+
+### Updaten mit [tldr](https://github.com/tldr-pages/tldr)
+
+:::note
+CachyOS verwendet [tealdeer](https://github.com/tealdeer-rs/tealdeer), eine schnellere, auf Rust basierende Implementierung des ursprünglichen tldr
+:::
+
+Dieses Tool ist extrem nützlich für diejenigen, die nicht viel lesen oder Zeit mit dem Lesen einer Hilfe-/Manpage verschwenden wollen.
 
 <Steps>
 
-1. Füge die folgenden Kernel-Parameter zu deinem Boot-Manager hinzu, siehe [Konfiguration des Boot-Managers](/de/configuration/boot_manager_configuration) als Referenz
+1. ```sh title="Öffne ein Terminal und führe den folgenden Befehl aus"
+   tldr --update
+   ```
+2. Beispiel für die Verwendung von tldr:
+   ```sh
+   tldr java
+     Execute a `.jar` program:
+
+      java -jar filename.jar
+
+   # Wie du sehen kannst, ist es wirklich nützlich, und im Laufe der Zeit werden neue Tools/Seiten hinzugefügt.
+   ```
+
+</Steps>
+
+### Appimages verwalten
+
+Appimages sind portable Anwendungen, die auf den meisten Linux-Distributionen laufen, ohne dass eine Installation oder root-Rechte erforderlich sind.
+
+:::note[Alle AppImages benötigen Ausführungsberechtigungen, um zu laufen.]
+Du kannst die Ausführungsberechtigung mit dem folgenden Befehl setzen:
+```sh
+chmod +x /pfad/zu/deinem/appimage
+```
+Oder klicke mit der rechten Maustaste auf die AppImage-Datei, gehe zu `Eigenschaften` > `Berechtigungen` und aktiviere das Kontrollkästchen `Datei als Programm ausführen erlauben.`
+:::
+
+:::note[Bevor du AppImages ausführst, stelle sicher, dass FUSE (Filesystem in Userspace) auf deinem System installiert ist.]
+```sh
+sudo pacman -S fuse2
+```
+:::
+
+Um AppImages zu verwalten, kannst du [gearlever](https://github.com/mijorus/gearlever) verwenden, der eine einfache Möglichkeit bietet, AppImages in dein System zu integrieren.
+
+`gearlever` ist ein grafisches Werkzeug, das die Verwaltung von AppImages auf deinem System vereinfacht. Es integriert sich in deine Desktop-Umgebung und macht es einfach, AppImages auszuführen und zu verwalten.
+
+Um gearlever zu installieren, befolge diese Schritte:
+
+<Steps>
+    1. Installiere flatpak, falls du es noch nicht getan hast:
+        ```sh
+        sudo pacman -S flatpak
+        ```
+    2. Starte dein System neu.
+    3. Installiere gearlever mit flatpak:
+        ```sh
+        flatpak install flathub it.mijorus.gearlever
+        ```
+    4. Nach der Installation. Logge dich aus und wieder ein, um gearlever in deinem Anwendungsmenü zu sehen.
+</Steps>
+
+### Zugriff auf Samba-Freigaben konfigurieren
+
+Samba ist eine freie Software-Neuimplementierung des SMB-Netzwerkprotokolls. Um eine Verbindung zu deinem Samba-Server herzustellen, wurde den CachyOS-Benutzern eine nützliche Konfiguration zur Verfügung gestellt, die jedoch eine Änderung der Konfiguration deines Samba-Servers erfordert.
+
+#### Installieren und Verwenden der CachyOS smb.conf-Datei
+
+Um die praktische smb.conf-Datei zu verwenden, installiere zuerst ein spezifisches Paket, das die erforderliche smb.conf-Datei bereitstellt. Ersetze dann die vorhandene smb.conf deines Servers durch diese Datei und konfiguriere deine freigegebenen Volumes neu.
+
+:::note[Diese Anleitung geht davon aus, dass du bereits einen funktionierenden Samba-Server hast]
+:::
+
+<Steps>
+    1. Erstelle eine Sicherungskopie deiner ursprünglichen `smb.conf`-Datei, die sich typischerweise unter `/etc/samba/smb.conf` auf Linux-Systemen befindet.
+    2. Installiere das CachyOS-Samba-Einstellungspaket auf deiner Client-Maschine:
+        ```sh
+        sudo pacman -S cachyos-samba-settings
+        ```
+    3. Kopiere die `smb.conf` von deiner Client-Maschine auf den Samba-Server.
+    4. Öffne und bearbeite die Datei, um deine freigegebenen Verzeichnisse, Drucker usw. hinzuzufügen.
+    5. Starte den Samba-Dienst auf deinem Server neu:
+        ```sh
+        sudo systemctl restart --now samba
+        ```
+    6. Greife auf der Client-Maschine über deinen Dateimanager auf deine freigegebenen Ressourcen zu (z.B., `smb://<deine_server_ip>/<freigabename>`).
+
+        Wenn alles richtig konfiguriert ist, wirst du nach Anmeldeinformationen gefragt. Denke daran, die Option zum Speichern deiner Anmeldeinformationen auszuwählen, wenn du das möchtest.
+</Steps>
+
+### Unterstützung von AppArmor durch AppArmor.d-Profile
+
+Zitat von Wikipedia:
+
+*AppArmor ("Application Armor") ist ein Linux-Kernel-Sicherheitsmodul, das dem Systemadministrator erlaubt, die Fähigkeiten von Programmen mit per-Programm-Profilen einzuschränken. Profile können Fähigkeiten wie Netzwerkzugriff, Raw-Socket-Zugriff und die Berechtigung zum Lesen, Schreiben oder Ausführen von Dateien auf passenden Pfaden erlauben.*
+
+Dies ist nur eine Einführung, wie man ein grundlegendes AppArmor-Setup installiert, falls du mit AppArmor nicht vertraut bist. Fahre bitte nicht fort, ohne die Implikationen zu verstehen.
+
+Für detailliertere Informationen über AppArmor.d und wie man eigene Profile erstellt, schau dir die [AppArmor.d-Dokumentation](https://github.com/roddhjav/apparmor.d?tab=readme-ov-file#configuration) an.
+
+:::caution[Sei vorsichtig. Ein schlecht konfiguriertes AppArmor-Setup kann Probleme verursachen.]
+:::
+
+<Steps>
+
+1. Füge die folgenden Kernel-Parameter zu deinem Boot-Manager hinzu, siehe [Boot Manager Configuration](/de/configuration/boot_manager_configuration) als Referenz
 
    ```text
    lsm=landlock,lockdown,yama,integrity,apparmor,bpf
@@ -373,128 +559,48 @@ sudo pacman -S appmenu-gtk-module libdbusmenu-glib
    Optimize=compress-fast
    cache-loc /etc/apparmor/earlypolicy/
    ```
-   Speichere die Datei und starte neu.
+   Speichere die Datei und starte dein System neu.
 </Steps>
 
-## Die Standard-Shell ändern
+### TRIM auf verschlüsselten (LUKS-)Geräten aktivieren
 
-Derzeit verwendet CachyOS [fish](https://fishshell.com/) als Standard-Login-Shell des Benutzers. Du kannst jedoch
-die Standard-Shell nach Belieben ändern.
+CachyOS aktiviert standardmäßig `fstrim.timer`, um SSDs und NVMe-Laufwerke regelmäßig zu trimmen und so die Schreibperformance und die Lebensdauer des Laufwerks zu erhalten. Allerdings blockiert die Linux-Device-Mapper- Verschlüsselungsschicht (`dm-crypt`/LUKS) standardmäßig discard-(TRIM)-Befehle. Infolgedessen werden die periodischen TRIM-Vorgänge im Hintergrund ausgeführt, ohne verschlüsselte Partitionen zu trimmen, es sei denn, Discard-Passthrough wird ausdrücklich aktiviert.
 
-<Tabs>
-   <TabItem label='bash'>
+:::caution[Sicherheit & Datenschutz]
+Die Aktivierung von TRIM auf einem verschlüsselten Gerät ermöglicht es dem darunter liegenden SSD-Controller zu erkennen, welche Sektoren leer sind und welche Daten enthalten. Während deine Daten vollständig verschlüsselt bleiben, könnte ein Angreifer mit physischem Zugriff auf den Rohspeicher den ungefähr genutzten Speicherplatz, das Dateisystem-Layout oder Datenmuster ableiten.
 
-      Dies ist die Standard-Shell auf fast jeder Linux-Distribution. Sie wird auch immer noch als Login-Shell des root-Benutzers verwendet. bash
-      verfügt über grundlegende Autovervollständigungsfunktionen und eine einfache Verlaufsverwaltung. Es unterscheidet sich von zsh und fish dadurch, dass es nicht
-      das ausgefallene Anpassungs- und Plugin-Ökosystem hat, das sowohl fish als auch zsh besitzen.
-
-
-      ```sh title='Ändere deine Standard-Shell auf bash'
-      chsh -s /usr/bin/bash
-      ```
-
-   </TabItem>
-
-   <TabItem label='zsh'>
-
-      Wir bieten eine [zsh-Konfiguration](https://github.com/CachyOS/cachyos-zsh-config) mit häufig verwendeten Plugins und Konfigurationen an.
-      Sie zielt darauf ab, eine 1:1-Funktionalität mit unserer [fish-Konfiguration](https://github.com/CachyOS/cachyos-fish-config) zu haben.
-      Dies ist auch die Standard-Shell, die in MacOS verwendet wird.
-
-      ```sh title='Ändere die Standard-Shell auf zsh'
-      chsh -s /usr/bin/zsh
-      ```
-
-   </TabItem>
-</Tabs>
-
-## [tldr](https://github.com/tldr-pages/tldr) aktualisieren/verwenden
-
-:::note
-CachyOS verwendet [tealdeer](https://github.com/tealdeer-rs/tealdeer), eine schnellere, auf Rust basierende Implementierung des ursprünglichen tldr
+Wenn diese Metadaten-Lücke für dein Bedrohungsmodell akzeptabel ist, kannst du Discard-Passthrough aktivieren, um die SSD-Performance und den Zustand des Laufwerks zu verbessern.
 :::
 
-Dieses Tool ist extrem nützlich für diejenigen, die nicht viel lesen oder Zeit mit dem Lesen einer Hilfe-/Manpage verschwenden wollen.
+#### Aktivieren des Discard-Passthrough (LUKS2)
 
 <Steps>
+1. Identifiziere deinen aktiven LUKS-Mapper-Namen:
 
-1. ```sh title="Öffne ein Terminal und führe den folgenden Befehl aus"
-   tldr --update
-   ```
-2. Beispiel für die Verwendung von tldr:
-   ```sh
-   tldr java
-     Execute a `.jar` program:
-
-      java -jar filename.jar
-
-   # Wie du sehen kannst, ist es wirklich nützlich, und im Laufe der Zeit werden neue Tools/Seiten hinzugefügt.
+   ```bash
+   lsblk
    ```
 
-</Steps>
+   Suche unter deiner Disk-Partition nach einem Eintrag vom Typ `crypt` (z. B. `luks-1e647929-62c0-4922-8944-f941ed4155fd`).
 
-## Appimages verwalten
+2. Aktiviere den dauerhaften Discard-Passthrough auf dem aktiven LUKS-Mapping:
 
-Appimages sind portable Anwendungen, die auf den meisten Linux-Distributionen laufen, ohne dass eine Installation oder root-Rechte erforderlich sind.
+   ```bash
+   sudo cryptsetup --allow-discards --persistent refresh <mapper_name>
+   ```
 
-:::note[Alle AppImages benötigen Ausführungsberechtigungen, um zu laufen.]
-Du kannst die Ausführungsberechtigung mit dem folgenden Befehl setzen:
-```sh
-chmod +x /pfad/zu/deinem/appimage
-```
-Oder klicke mit der rechten Maustaste auf die AppImage-Datei, gehe zu `Eigenschaften` > `Berechtigungen` und aktiviere das Kontrollkästchen `Datei als Programm ausführen erlauben.`
-:::
+   :::note
+   Ersetze `<mapper_name>` durch deinen tatsächlichen gemappeten Namen aus Schritt 1 (zum Beispiel `sudo cryptsetup --allow-discards --persistent refresh luks-1e647929-62c0-4922-8944-f941ed4155fd`).
+   :::
 
-:::note[Bevor du AppImages ausführst, stelle sicher, dass FUSE (Filesystem in Userspace) auf deinem System installiert ist.]
-```sh
-sudo pacman -S fuse2
-```
-:::
+3. Starte dein System neu, um die Änderungen anzuwenden.
 
-Um AppImages zu verwalten, kannst du [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) verwenden, der eine einfache Möglichkeit bietet, AppImages in dein System zu integrieren.
-<Tabs>
-  <TabItem label='Verwendung von AppImageLauncher (GUI)'>
-    AppImageLauncher ist ein grafisches Werkzeug, das die Verwaltung von AppImages auf deinem System vereinfacht. Es integriert sich in deine Desktop-Umgebung und macht es einfach, AppImages auszuführen und zu verwalten.
-        <Steps>
-        1. Installiere AppImageLauncher:
-              ```sh
-              paru appimagelauncher
-              ```
-        2. Lade ein Appimage deiner Wahl von einer vertrauenswürdigen Quelle herunter.
+4. Überprüfe, ob der Discard-Passthrough aktiv ist:
 
-        3. Doppelklicke auf die heruntergeladene AppImage-Datei. AppImageLauncher wird dich auffordern, die Anwendung in dein System zu integrieren.
+   ```bash
+   lsblk -D
+   sudo fstrim -v /
+   ```
 
-        4. Folge den Anweisungen, um den Integrationsprozess abzuschließen.
-
-        5. Sobald es integriert ist, kannst du die Anwendung aus deinem Anwendungsmenü oder durch Doppelklick auf die AppImage-Datei starten.
-        </Steps>
-    </TabItem>
-</Tabs>
-
-## Zugriff auf Samba-Freigaben konfigurieren
-
-Samba ist eine freie Software-Neuimplementierung des SMB-Netzwerkprotokolls. Um eine Verbindung zu deinem Samba-Server herzustellen, wurde den CachyOS-Benutzern eine nützliche Konfiguration zur Verfügung gestellt, die jedoch eine Änderung der Konfiguration deines Samba-Servers erfordert.
-
-### Installieren und Verwenden der CachyOS smb.conf-Datei
-
-Um die praktische smb.conf-Datei zu verwenden, installiere zuerst ein spezifisches Paket, das die erforderliche smb.conf-Datei bereitstellt. Ersetze dann die vorhandene smb.conf deines Servers durch diese Datei und konfiguriere deine freigegebenen Volumes neu.
-
-:::note[Diese Anleitung geht davon aus, dass du bereits einen funktionierenden Samba-Server hast]
-:::
-
-<Steps>
-    1. Erstelle eine Sicherungskopie deiner ursprünglichen `smb.conf`-Datei, die sich typischerweise unter `/etc/samba/smb.conf` auf Linux-Systemen befindet.
-    2. Installiere das CachyOS-Samba-Einstellungspaket auf deiner Client-Maschine:
-        ```sh
-        sudo pacman -S cachyos-samba-settings
-        ```
-    3. Kopiere die `smb.conf` von deiner Client-Maschine auf den Samba-Server.
-    4. Öffne und bearbeite die Datei, um deine freigegebenen Verzeichnisse, Drucker usw. hinzuzufügen.
-    5. Starte den Samba-Dienst auf deinem Server neu:
-        ```sh
-        sudo systemctl restart --now samba
-        ```
-    6. Greife auf der Client-Maschine über deinen Dateimanager auf deine freigegebenen Ressourcen zu (z.B., `smb://<deine_server_ip>/<freigabename>`).
-
-        Wenn alles richtig konfiguriert ist, wirst du nach Anmeldeinformationen gefragt. Denke daran, die Option zum Speichern deiner Anmeldeinformationen auszuwählen, wenn du das möchtest.
+   `lsblk -D` sollte für dein verschlüsseltes Volume nun nicht-null-Werte unter `DISC-GRAN` und `DISC-MAX` anzeigen, und `fstrim` gibt die Menge des getrimmten Speicherplatzes aus, anstatt das Gerät zu überspringen.
 </Steps>

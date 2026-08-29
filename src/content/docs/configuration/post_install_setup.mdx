@@ -56,7 +56,7 @@ Make sure to check our [Security & Best Practices](/cachyos_basic/faq#security--
     ```
     </details>
     <details>
-    <summary>Upgrade standard packages (Arch derivates) + install package:</summary>
+    <summary>Upgrade standard packages (Arch derivatives) + install package:</summary>
     ```sh
     shelly install --upgrade {pkg}
     # Example:
@@ -243,7 +243,7 @@ The `/etc/pacman.d/offline.conf` file is crucial for managing which packages are
 Fork of [Arch-Update](https://github.com/Antiz96/arch-update)
 
 An update notifier & applier for Arch Linux that assists you with important pre / post update tasks.
-Includes a dynamic & clickeable systray applet for an easy integration with any Desktop Environment / Window Manager.
+Includes a dynamic & clickable systray applet for an easy integration with any Desktop Environment / Window Manager.
 
 <details>
     <summary>How to enable Cachy-Update</summary>
@@ -251,13 +251,17 @@ Includes a dynamic & clickeable systray applet for an easy integration with any 
 </details>
 <details>
     <summary>How to disable Cachy-Update</summary>
-        Open a terminal and run the following commands:
-            ```bash
-            sudo systemctl --global disable arch-update-tray.service
-            sudo systemctl --global disable arch-update.timer
-            ```
+        Disable Cachy-Update in `CachyOS Hello > Apps/Tweaks > Cachy Update disabled`
             :::tip
-            If you want to keep the system tray applet enabled but just disable the automatic update check, you can simply disable the timer without disabling the service.
+            If you want to keep Cachy-Update and just disable the systray applet, open a terminal and run the following commands:
+            ```bash
+            mkdir -p ~/.config/autostart
+            echo -e "[Desktop Entry]\nHidden=true" > ~/.config/autostart/arch-update-tray.desktop
+            ```
+            If you want to keep the system tray applet enabled and simply disable the automatic update check, run the following command:
+            ```bash
+            systemctl --user disable --now arch-update.timer
+            ```
             :::
 </details>
 
@@ -270,7 +274,7 @@ Includes a dynamic & clickeable systray applet for an easy integration with any 
   - Check for services requiring a post upgrade restart (and offers to do so if there are).
   - Support for `sudo`, `sudo-rs`, `doas` & `run0`.
 
-**Update check interval:** `Once 15 seconds after boot and then every hour.`
+**Update check interval:** `Once two minutes after boot and then once a day with a one hour random delay.`
 
 - How to change the update check interval:
 
@@ -284,8 +288,9 @@ systemctl --user edit --full arch-update.timer
 <summary>Default contents of the file:</summary>
     ```systemd
     [Timer]
-    OnStartupSec=15 # Check for updates 15 seconds after boot
-    OnUnitActiveSec=1h # Check for updates every hour
+    OnStartupSec=2min # Check for updates two minutes after boot
+    RandomizedDelaySec=1h # One hour random delay
+    OnUnitActiveSec=1d # Check for updates once a day
     ```
 </details>
 Basically you can change the `OnUnitActiveSec` value to whatever you want. For example, if you want to check for updates every 30 minutes, change it to `30m`. or every 6 hours, change it to `6h`. Check this [document](https://www.freedesktop.org/software/systemd/man/latest/systemd.time.html#Parsing%20Time%20Spans) for more details on how to set the time interval.
@@ -381,60 +386,6 @@ You can also configure it graphically using "Firewall" section in the KDE Plasma
 :::note
 Changes on allow/deny takes effect after ufw has been restarted. Disable and then enable ufw again for immediate result.
 :::
-
-### Configure Wi-Fi Regulatory Domain
-
-The `wireless-regdb` package includes a database of wireless rules (allowed frequencies, channels, power limits) for various countries. Setting the right region for your location can unlock specific Wi-Fi channels (such as channels 12/13 or 5GHz/6GHz bands) that may be limited by default, helping to improve your Wi-Fi performance and connection quality.
-
-**Configuration:**
-
-1. Edit the configuration:
-   Open `/etc/conf.d/wireless-regdom` with root privileges.
-   ```bash
-   sudo micro /etc/conf.d/wireless-regdom
-   ```
-2. Set your country:
-   Uncomment the line with your two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) (e.g., `WIRELESS_REGDOM="US"`). Ensure only one country is uncommented.
-3. Reboot:
-   A reboot is typically required for the change to take effect.
-
-**Verification:**
-
-To check the currently applied regulatory domain, use this command:
-
-```bash
-iw reg get
-global
-country 00: DFS-UNSET # Country 00 uses global defaults
-	(755 - 928 @ 2), (N/A, 20), (N/A), PASSIVE-SCAN
-	(2402 - 2472 @ 40), (N/A, 20), (N/A)
-	(2457 - 2482 @ 20), (N/A, 20), (N/A), AUTO-BW, PASSIVE-SCAN
-	(2474 - 2494 @ 20), (N/A, 20), (N/A), NO-OFDM, PASSIVE-SCAN
-	(5170 - 5250 @ 80), (N/A, 20), (N/A), AUTO-BW, PASSIVE-SCAN
-	(5250 - 5330 @ 80), (N/A, 20), (0 ms), DFS, AUTO-BW, PASSIVE-SCAN
-	(5490 - 5730 @ 160), (N/A, 20), (0 ms), DFS, PASSIVE-SCAN
-	(5735 - 5835 @ 80), (N/A, 20), (N/A), PASSIVE-SCAN
-	(57240 - 63720 @ 2160), (N/A, 0), (N/A)
-```
-
-Look for the `country XX:` line, where `XX` should match the code you set. If it shows `country 00:`, the system might be using default restrictions or hasn't yet determined the region.
-
-```bash
-iw reg get
-global
-country US: DFS-FCC # Country correctly shows as US
-	(902 - 904 @ 2), (N/A, 30), (N/A)
-	(904 - 920 @ 16), (N/A, 30), (N/A)
-	(920 - 928 @ 8), (N/A, 30), (N/A)
-	(2400 - 2472 @ 40), (N/A, 30), (N/A)
-	(5150 - 5250 @ 80), (N/A, 23), (N/A), AUTO-BW
-	(5250 - 5350 @ 80), (N/A, 24), (0 ms), DFS, AUTO-BW
-	(5470 - 5730 @ 160), (N/A, 24), (0 ms), DFS
-	(5730 - 5850 @ 80), (N/A, 30), (N/A), AUTO-BW
-	(5850 - 5895 @ 40), (N/A, 27), (N/A), NO-OUTDOOR, AUTO-BW, PASSIVE-SCAN
-	(5925 - 7125 @ 320), (N/A, 12), (N/A), NO-OUTDOOR, PASSIVE-SCAN
-	(57240 - 71000 @ 2160), (N/A, 40), (N/A)
-```
 
 ### Enabling Global Menu
 For some apps like Visual Studio Code, the global menu may not work or may be attached to the parent app instead of the panel.
@@ -610,4 +561,47 @@ For more detailed information about AppArmor.d and how to create your own profil
    cache-loc /etc/apparmor/earlypolicy/
    ```
    Save the file and reboot.
+</Steps>
+
+### Enabling TRIM on Encrypted (LUKS) Devices
+
+CachyOS enables `fstrim.timer` by default to periodically trim SSDs and NVMe drives, helping maintain write performance and drive longevity. However, the Linux device-mapper encryption layer (`dm-crypt`/LUKS) blocks discard (TRIM) commands by default. As a result, periodic TRIM runs silently without trimming encrypted partitions unless discard passthrough is explicitly enabled.
+
+:::caution[Security & Privacy Considerations]
+Enabling TRIM on an encrypted device allows the underlying SSD controller to know which sectors are empty and which contain data. While your data remains fully encrypted, an attacker with physical access to the raw storage could infer approximate used storage space, filesystem layout, or data patterns.
+
+If this metadata leakage is acceptable for your threat model, you can safely enable discard passthrough for improved SSD performance and drive health.
+:::
+
+#### Enabling Discard Passthrough (LUKS2)
+
+<Steps>
+1. Identify your active LUKS mapper name:
+
+   ```bash
+   lsblk
+   ```
+
+   Look for the `crypt` type entry under your disk partition (e.g., `luks-1e647929-62c0-4922-8944-f941ed4155fd`).
+
+2. Enable persistent discard passthrough on the active LUKS mapping:
+
+   ```bash
+   sudo cryptsetup --allow-discards --persistent refresh <mapper_name>
+   ```
+
+   :::note
+   Replace `<mapper_name>` with your actual mapped name found in step 1 (for example, `sudo cryptsetup --allow-discards --persistent refresh luks-1e647929-62c0-4922-8944-f941ed4155fd`).
+   :::
+
+3. Reboot your system to apply the changes.
+
+4. Verify that discard passthrough is active:
+
+   ```bash
+   lsblk -D
+   sudo fstrim -v /
+   ```
+
+   `lsblk -D` should now display non-zero values under `DISC-GRAN` and `DISC-MAX` for your encrypted volume, and `fstrim` will output the amount of trimmed space rather than skipping the device.
 </Steps>

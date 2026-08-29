@@ -4,20 +4,21 @@ description: Preguntas frecuentes y consejos
 tableOfContents:
   minHeadingLevel: 1
   maxHeadingLevel: 5
+ai_translated: true
 ---
 
 import ImageComponent from '~/components/image-component.astro';
 import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 
 :::note
-Las siguientes preguntas y respuestas se aplican a CachyOS y a distribuciones basadas en Arch. `Esto no pretende reemplazar la información de la Arch Linux Wiki`
+Las siguientes preguntas y respuestas se aplican a CachyOS y a distribuciones basadas en Arch.
+
+**Esto no pretende reemplazar la información de la Arch Linux Wiki.**
 :::
 
 :::tip
-Mantente alerta a cualquier anuncio oficial de CachyOS en nuestro [Foro](https://discuss.cachyos.org/c/announcements/8), publicación de Reddit en nuestro [subreddit oficial](https://www.reddit.com/r/cachyos/) o en Discord en [#announcements](https://discord.com/channels/862292009423470592/873309651364610118) y [#updates-repo](https://discord.com/channels/862292009423470592/871739561364033566) sobre problemas conocidos con un paquete o actualizaciones que requieran intervención manual.
+Mantente alerta a cualquier anuncio oficial de CachyOS en nuestro [Foro](https://discuss.cachyos.org/c/announcements/5), publicación de Reddit en nuestro [subreddit oficial](https://www.reddit.com/r/cachyos/) o en [Discord #announcements](https://discord.com/channels/862292009423470592/873309651364610118) y [#updates-repo](https://discord.com/channels/862292009423470592/871739561364033566) sobre problemas conocidos con un paquete o actualizaciones que requieran intervención manual.
 :::
-
-## Cómo reportar un problema o error a CachyOS
 
 :::danger
 Ten cuidado al confiar en la ayuda y los comandos proporcionados por un modelo de IA (como ChatGPT) sin verificar la información de fuentes oficiales. Los modelos de IA a veces pueden proporcionar información incorrecta o engañosa, especialmente en contextos técnicos. Siempre contrasta la información con documentación de confianza o recursos de la comunidad.
@@ -25,12 +26,12 @@ Ten cuidado al confiar en la ayuda y los comandos proporcionados por un modelo d
 De lo contrario, podrías terminar con un sistema completamente roto o empeorar aún más el problema.
 :::
 
-:::tip
-Recuerda. En el mundo de Linux hay una cita increíble: "Lo más probable es que alguien más haya tenido el mismo problema antes que tú". Así que por favor, usa la función de búsqueda en Google, la Arch Wiki o el Foro/Discord de CachyOS antes de reportar un problema, porque podría estar ya resuelto.
-:::
 
-:::tip
-No olvides usar el comando tldr para ver una versión simplificada de las páginas del manual para comandos con los que no estés familiarizado. Ejemplo:
+## Cómo reportar un problema o error a CachyOS
+
+*Recuerda. En el mundo de Linux hay una cita increíble: "Lo más probable es que alguien más haya tenido el mismo problema antes que tú". Así que por favor, usa la función de búsqueda en Google, la Arch Wiki o el Foro/Discord de CachyOS antes de reportar un problema, porque podría estar ya resuelto.*
+
+No olvides usar el comando `tldr` para ver una versión simplificada de las páginas del manual para comandos con los que no estés familiarizado. Ejemplo:
 
 Algunos de los comandos y descripciones más comunes para git:
 ```bash
@@ -41,15 +42,14 @@ También puedes combinar tldr con un comando específico de git para obtener inf
 ```bash
 tldr git add
 ```
-:::
 
-### Lugares para reportar
+### Lugares para abrir reportes
 
 - [Github](https://github.com/CachyOS/distribution)
 - [Foro](https://discuss.cachyos.org/c/feedback/bugreports/10)
-- **Discord:** [Foro de Soporte](https://discord.com/channels/862292009423470592/1400865136373403708)
-  - Antes de crear una nueva publicación. Por favor, asegúrate de leer las [Directrices e Información de Soporte](https://discord.com/channels/862292009423470592/1402210965700739082) fijadas en el canal.
-    - O si crees que tu problema se puede resolver rápidamente, usa el canal [#support](https://discord.com/channels/862292009423470592/862294383470051348)
+- [Discord: Foro de Soporte](https://discord.com/channels/862292009423470592/1400865136373403708)
+  - Antes de crear una nueva publicación, lee las [directrices de soporte](https://discord.com/channels/862292009423470592/1522310323250397274) fijadas en el canal.
+    - O, si crees que tu problema se puede resolver rápidamente, usa el [canal #support](https://discord.com/channels/862292009423470592/862294383470051348)
 - [Reddit](https://www.reddit.com/r/cachyos/)
 
 ### Sé paciente y respetuoso
@@ -75,10 +75,10 @@ Aquí hay un par de cosas que deberías preguntarte:
 
 - ¿Qué es lo que no funciona?
 - ¿Bajar de versión el paquete X soluciona el problema?
-- Usa la función de búsqueda para encontrar problemas similares
+- ¿Otras personas experimentan este problema / ya se ha resuelto antes? (usa la función de búsqueda)
 - ¿El problema apareció después de una actualización?
 - ¿Has hecho modificaciones por tu cuenta?
-  - Ejemplo: `Añadir una bandera adicional en un archivo modprobe`
+  - Ejemplo: añadir una bandera adicional en un archivo modprobe
 - ¿Está relacionado con el hardware? (ej. GPU, WiFi, etc.)
 - ¿Está relacionado con el software? (ej. aplicación específica, entorno de escritorio, etc.)
 - ¿Es una instalación nueva o el problema apareció después de un tiempo de uso?
@@ -88,32 +88,34 @@ Aquí hay un par de cosas que deberías preguntarte:
 Hay muchas maneras de recopilar registros de tu sistema. Aquí hay un par de ejemplos y herramientas que puedes usar:
 
 ### Creando un reporte de error general
-- CachyOS proporciona una gran herramienta para recopilar registros del sistema llamada `cachyos-bugreport.sh`.
-  - Esta herramienta recopilará registros de:
-    - `dmesg`
-    - `journalctl`
-    - `inxi` (Para recopilar información de hardware)
-  - Cuando se recopilen los registros, se le preguntará al usuario si desea subirlos a nuestro sitio web de pegado.
-  - Ejecuta el siguiente comando en la terminal y pega el enlace con los errores en el tema:
-    ```sh
-    sudo cachyos-bugreport.sh
-    ```
+CachyOS proporciona una gran herramienta para recopilar registros del sistema llamada `cachyos-bugreport.sh`.
+Esta herramienta recopilará registros de:
+  - `dmesg`
+  - `journalctl`
+  - `inxi` (Para recopilar información de hardware)
+
+Después de recopilar los registros, se le pedirá al usuario que decida si desea subirlos a nuestro sitio web de pegado.
+
+Para ejecutar este script, ingresa el siguiente comando en la terminal y comparte el enlace generado en tu reporte:
+  ```sh
+  sudo cachyos-bugreport.sh
+  ```
 
 ### Recopilando registros de un programa que no se inicia
-- El programa X ya no se inicia:
-  - Hay muchas razones por las que un programa gráfico podría no iniciarse. La mejor manera de recopilar registros para este tipo de problema es ejecutar el programa desde una terminal. De esta manera, puedes ver cualquier mensaje de error o salida que pueda ayudar a diagnosticar el problema.
-  - Ejemplo:
-    ```sh
-    firefox
-    ```
-    - Si Firefox no se inicia, podrías ver un mensaje de error en la terminal que puede ayudar a identificar el problema.
-    :::tip
-    Si quieres guardar la salida en un archivo de texto para compartirla más fácilmente, puedes redirigir la salida de esta manera:
+Hay muchas razones por las que un programa gráfico podría no iniciarse. La mejor manera de recopilar registros para este tipo de problema es ejecutar el programa desde una terminal. De esta manera, puedes ver cualquier mensaje de error o salida que pueda ayudar a diagnosticar el problema.
+
+Por ejemplo, si Firefox no se inicia completamente, intenta iniciarlo desde la terminal y busca mensajes de error:
+  ```sh
+  firefox
+  ```
+
+:::tip
+  Si quieres guardar la salida en un archivo de texto para compartirla más fácilmente, puedes redirigir la salida de esta manera:
     ```sh
     firefox &> firefox-log.txt
     ```
-    Recuerda presionar `CTRL + C` para terminar el proceso después de que falle al iniciarse para que la terminal escriba la salida en el archivo.
-    :::
+  Recuerda presionar `CTRL + C` para terminar el proceso después de que falle al iniciarse para que la terminal escriba la salida en el archivo.
+:::
 
 ### Comprobar los últimos paquetes actualizados en pacman.
 
@@ -129,17 +131,15 @@ Ajusta el parámetro `-n` de tail para obtener más o menos líneas.
 
 ### Atajos de teclado para navegar en journalctl y dmesg
 
-Los atajos de teclado más comunes para navegar por los registros cuando se usa el modo `less` o legible por humanos:
+Los atajos de teclado más comunes para navegar por los registros cuando se usa `less` o el modo legible por humanos:
 
-`Teclas de Flecha`: para moverse hacia arriba y abajo línea por línea.
+`ArrowUp & ArrowDown or J & K` para desplazarse hacia arriba o abajo línea por línea.
 
-`Av Pág y Re Pág o Ctrl + A/D`: para desplazarse hacia abajo o hacia arriba una página a la vez.
+`PageUp & PageDown or Ctrl + B/D` para desplazarse hacia arriba o abajo una página a la vez.
 
-`j & k`: para moverse hacia abajo o hacia arriba línea por línea (similar a Vim).
+`G or Home` para saltar al principio del registro.
 
-`g o Inicio`: para saltar al principio del registro.
-
-`Shift + G o Fin`: para saltar al final del registro.
+`Shift + G or End` para saltar al final del registro.
 
 ### Usando journalctl para recopilar registros del sistema
 
@@ -207,7 +207,6 @@ Busca problemas de corrupción o detección de memoria.
 <summary>Problemas relacionados con Bluetooth:</summary>
 ```bash
 # Del arranque actual:
-journalctl -u bluetooth -b 0
 journalctl -u bluetooth -b 0
 # Del arranque anterior:
 journalctl -u bluetooth -b -1
@@ -293,7 +292,7 @@ journalctl _PID=3344
 <details>
 <summary>Mostrar registros de un ejecutable específico:</summary>
 ```bash
-journalctl ruta/al/ejecutable
+journalctl path/to/executable
 # Ejemplo:
 journalctl /usr/bin/firefox
 ```
@@ -551,13 +550,15 @@ Por eso puede tardar un poco en cargar el instalador.
 
 Esto sucede cuando el instalador tiene dificultades para descargar paquetes. Suele ser una señal de una conexión a internet muy lenta o inestable. Por favor, revisa tu conexión de red e inténtalo de nuevo.
 
-## Recuperación del Gestor de Arranque e Instantáneas de Btrfs
+## Recuperación del Gestor de Arranque
 
 :::note
-En caso de que la partición `/boot` haya sido eliminada, por favor cree una nueva siguiendo el [esquema de particionado](/es/installation/installation_on_root#uefigpt) correspondiente a partir del paso 5.
+En caso de que la partición `/boot` haya sido eliminada, por favor crea una nueva siguiendo el [esquema de particionado](/es/installation/installation_on_root#uefigpt) correspondiente a partir del paso 5.
 :::
 
 ### Pasos para recuperar tu gestor de arranque
+
+Útil para casos en los que las entradas del gestor de arranque desaparezcan después de una actualización de BIOS, o simplemente por si necesitases hacerlo.
 
 :::tip
 Si no estás seguro de cómo usar `cachy-chroot`, por favor consulta primero la documentación de [CachyOS chroot Helper](/es/features/cachy_chroot).
@@ -634,33 +635,11 @@ Si no estás seguro de cómo usar `cachy-chroot`, por favor consulta primero la 
     6. Reinicia tu sistema.
 </Steps>
 
-### Usando una instantánea de Btrfs como punto de restauración
-
-:::note
-Aunque CachyOS crea automáticamente instantáneas de Btrfs antes de cada actualización del sistema mediante el uso de hooks de pacman, siempre es una buena idea crear tus propias instantáneas antes de realizar cambios importantes en tu sistema.
-:::
-
-Para obtener más información sobre las instantáneas de Btrfs, consulte la [documentación de Btrfs](https://btrfs.readthedocs.io/en/latest/).
-
-Una instantánea de BTRFS aparece como una entrada de arranque adicional en el menú de tu gestor de arranque y generalmente tiene un nombre como:
-- `10 | 30-10-2025 14:37:10`
-<details>
-<summary>Ejemplo en una captura de pantalla:</summary>
-<ImageComponent imgsrc={import('~/assets/images/btrfs-snapshot-boot-entry.jpg')} />
-</details>
-
-También puedes usar la aplicación Btrfs Assistant para gestionar tus instantáneas. Proporciona una interfaz gráfica para crear, eliminar y restaurar instantáneas.
-
-<details>
-    <summary>Captura de pantalla de Btrfs Assistant:</summary>
-    <ImageComponent imgsrc={import('~/assets/images/btrfs-assistant-example.png')} />
-</details>
-
 ## Gestión de Paquetes y Actualizaciones
 
 ### Solución de problemas de Pacman
 
-#### error: la firma no es válida
+#### error: signature is invalid
 
 Este error indica un problema con la firma criptográfica de un paquete. Generalmente es causado por un repositorio (mirror) desactualizado o un llavero de claves (keyring) roto en tu sistema.
 
@@ -688,14 +667,14 @@ sudo cachyos-rate-mirrors
 
 Si calificar tus repositorios no funciona, es probable que los llaveros de claves de tu sistema estén rotos.
 
-- Abre CachyOS Hello y navega a **Apps/Tweaks**.
+- Abre CachyOS Hello y navega a **Troubleshooting**.
 - Haz clic en el botón Reset keyrings (Restablecer llaveros de claves).
 
 </TabItem>
 
 </Tabs>
 
-#### error: 404 No Encontrado
+#### error: 404 Not Found
 
 Este error significa que el paquete que intentas instalar no está disponible en tu repositorio actual. Esto suele ocurrir cuando tu base de datos de paquetes local no está sincronizada con los repositorios remotos.
 
@@ -708,12 +687,12 @@ sudo pacman -Syu
 # Luego intenta instalar de nuevo el paquete que querías.
 ```
 
-#### error: no se pudo eliminar
+#### error: could not remove
 
 Este error ocurre cuando la caché de pacman contiene archivos que el sistema no puede gestionar automáticamente. Este es un problema común que se puede solucionar fácilmente.
 
 - Solución 1: Usa CachyOS Hello.
-  - La forma más sencilla de solucionar esto es con CachyOS Hello. Ábrelo y ve a **Apps/Tweaks**, luego haz clic en el botón **Clear package cache** (Limpiar caché de paquetes).
+  - La forma más sencilla de solucionar esto es con CachyOS Hello. Ábrelo y ve a **Troubleshooting**, luego haz clic en el botón **Clear package cache** (Limpiar caché de paquetes).
 
 - Solución 2: Elimina la caché manualmente.
   - Ejecuta el siguiente comando para eliminar todos los paquetes huérfanos de la caché.
@@ -721,12 +700,12 @@ Este error ocurre cuando la caché de pacman contiene archivos que el sistema no
   sudo rm -r /var/cache/pacman/pkg/*
   ```
 
-#### error: El archivo está corrupto (paquete inválido o corrupto (firma PGP))
+#### error: File is corrupted (invalid or corrupted package (PGP signature))
 
 ```sh
 # Ejemplo:
-:: El archivo /var/cache/pacman/pkg/python-charset-normalizer-3.4.0-1-any.pkg.tar.zst
-está corrupto (paquete inválido o corrupto (firma PGP)).
+:: File /var/cache/pacman/pkg/python-charset-normalizer-3.4.0-1-any.pkg.tar.zst
+is corrupted (invalid or corrupted package (PGP signature)).
 ```
 
 Este error típicamente indica un problema con los llaveros de claves de pacman de tu sistema, los cuales verifican la autenticidad de los paquetes. Los siguientes comandos restablecerán y repoblarán los llaveros de claves para resolver el problema.
@@ -749,12 +728,12 @@ sudo cachyos-rate-mirrors
 sudo pacman -Scc
 ```
 
-#### error: no se puede bloquear la base de datos
+#### error: unable to lock database
 
 Este error ocurre cuando otro proceso de pacman ya se está ejecutando, lo que bloquea la base de datos para prevenir corrupción. Si el proceso anterior se cerró inesperadamente o fue interrumpido, es posible que el archivo de bloqueo `db.lck` no se haya eliminado.
 
 - Solución 1: Usa CachyOS Hello
-  - La forma más sencilla de solucionar esto es con la función **Remove db lock** (Eliminar bloqueo de bd) en la pestaña **Apps/Tweaks** de CachyOS Hello.
+  - La forma más sencilla de solucionar esto es con la función **Remove db lock** (Eliminar bloqueo de bd) en la pestaña **Troubleshooting** de CachyOS Hello.
 
 - Solución 2: Elimina el archivo de bloqueo manualmente
   - Si prefieres no usar CachyOS Hello, puedes eliminar el archivo de bloqueo manualmente:
@@ -763,15 +742,15 @@ Este error ocurre cuando otro proceso de pacman ya se está ejecutando, lo que b
 sudo rm /var/lib/pacman/db.lck
 ```
 
-#### error: fallo al recuperar el archivo ... Se agotó el tiempo de conexión
+#### error: failed retrieving file ... Connection timed out
 
 Podrías ver errores como estos:
 
 ```text
 # Ejemplos de errores:
-error: fallo al recuperar el archivo '...' de ... : Se agotó el tiempo de conexión
-error: fallo al recuperar el archivo '...' de ... : No se pudo resolver el nombre de host
-error: fallo al recuperar el archivo '...' de ... : La URL solicitada devolvió el error: 526
+error: failed retrieving file '...' from ... : Connection timed out
+error: failed retrieving file '...' from ... : Couldn't resolve host name
+error: failed retrieving file '...' from ... : The requested URL returned error: 526
 ```
 
 Estos errores casi siempre indican un problema con tus repositorios actuales. Pueden estar lentos, temporalmente caídos o inaccesibles desde tu ubicación.
@@ -800,17 +779,17 @@ Esta advertencia aparece cuando la versión de un paquete en tu sistema es más 
 sudo pacman -Syuu
 ```
 
-#### error: fallo al realizar la transacción (archivos en conflicto)
+#### error: failed to commit transaction (conflicting files)
 
 Este error indica que pacman está intentando instalar o actualizar un paquete que contiene archivos ya presentes en tu sistema desde una fuente diferente. Esta es una medida de seguridad integrada para prevenir roturas del sistema.
 
 - Solución: Puedes resolver este problema eliminando los archivos en conflicto manualmente. Para más información y soluciones, por favor consulta la [Arch Wiki](https://wiki.archlinux.org/title/Pacman#%22Failed_to_commit_transaction_(conflicting_files)%22_error).
 
 ```sh title='Ejemplo'
-error: fallo al realizar la transacción (archivos en conflicto)
-nvidia-utils: /usr/lib/environment.d/10-gsk.conf existe en el sistema de archivos
-Ocurrieron errores, no se actualizaron paquetes.
- -> error instalando paquetes del repositorio
+error: failed to commit transaction (conflicting files)
+nvidia-utils: /usr/lib/environment.d/10-gsk.conf exists in filesystem
+Errors occurred, no packages were upgraded.
+ -> error installing repo packages
 ```
 
 Para arreglar este ejemplo específico, deberías eliminar el archivo en conflicto y luego ejecutar tu comando de actualización de nuevo.
@@ -819,13 +798,13 @@ Para arreglar este ejemplo específico, deberías eliminar el archivo en conflic
 sudo rm /usr/lib/environment.d/10-gsk.conf
 ```
 
-#### ERROR: módulo no encontrado: 'nvidia', 'nvidia_modeset', ...
+#### ERROR: module not found: 'nvidia', 'nvidia_modeset', ...
 
 ```sh title='Ejemplo'
-==> ERROR: módulo no encontrado: 'nvidia'
-==> ERROR: módulo no encontrado: 'nvidia_modeset'
-==> ERROR: módulo no encontrado: 'nvidia_uvm'
-==> ERROR: módulo no encontrado: 'nvidia_drm'
+==> ERROR: module not found: 'nvidia'
+==> ERROR: module not found: 'nvidia_modeset'
+==> ERROR: module not found: 'nvidia_uvm'
+==> ERROR: module not found: 'nvidia_drm'
 ```
 
 **Dos razones para este error:**
@@ -847,9 +826,32 @@ sudo pacman -S nvidia
 
 Esto sucede porque Discord utiliza su propio sistema de actualización, que se adelanta a los repositorios oficiales. Se ha lanzado una nueva versión de la aplicación, pero aún no ha sido empaquetada para nuestros repositorios.
 
-Para solucionar este problema, sigue la [guía de solución de la Arch Wiki](https://wiki.archlinux.org/title/Discord#Discord_asks_for_an_update_not_yet_available_in_the_repository).
+Para solucionar este problema, sigue la [guía de solución de la Arch Wiki](<https://wiki.archlinux.org/title/Discord#Discord_asks_for_an_update_not_yet_available_in_the_repository>).
 
 ### Preguntas Generales
+
+#### Recientemente, mi sistema tarda mucho en arrancar
+
+Dado que este problema puede ser causado por muchas cosas diferentes. Comencemos con lo básico verificando systemd-analyze para ver dónde está luchando el sistema:
+
+Abre una terminal y ejecuta uno de los dos siguientes comandos:
+
+```sh
+systemd-analyze blame
+```
+
+o:
+
+```sh
+systemd-analyze critical-chain
+```
+
+Si la salida muestra `cachyos-rate-mirrors.service` tardando mucho en ejecutarse. Entonces deberías ejecutar el siguiente comando para enmascarar este servicio, lo que evitará que se ejecute en el arranque:
+
+```sh
+systemctl mask cachyos-rate-mirrors
+systemctl mask cachyos-rate-mirrors.timer
+```
 
 #### ¿Cuál es el origen de CachyOS y por qué se llama así?
 
@@ -887,13 +889,13 @@ Limine: `sudo limine-mkinitcpio`
 #### Enviar Solicitudes de Paquetes a CachyOS
 
 CachyOS ofrece una extensa lista de paquetes AUR precompilados, que son de uso común.
-Los usuarios pueden crear solicitudes para paquetes AUR, los cuales, si son aprobados, son actualizados automáticamente por nuestro servidor de compilación.
+Los usuarios pueden crear solicitudes para paquetes AUR de las siguientes maneras:
 
 Si quieres que agreguemos un paquete, puedes enviar una solicitud en GitHub o en el foro.
 
-- [GitHub:](https://github.com/CachyOS/distribution/issues)
-- [Foro:](https://discuss.cachyos.org/c/feedback/repository/11)
-- [Discord: Canal de Feedback](https://discord.com/channels/862292009423470592/1150723027986813018)
+- [GitHub](https://github.com/CachyOS/distribution/issues)
+- [Foro](https://discuss.cachyos.org/c/feedback/repository/11)
+- [Canal de feedback de Discord](https://discord.com/channels/862292009423470592/1150723027986813018)
 
 ## Seguridad y Buenas Prácticas
 
@@ -915,14 +917,17 @@ El AUR ofrece una vasta selección, pero la seguridad es primordial. Aquí tiene
 
 ¡Mantente alerta para mantener seguro tu sistema basado en Arch!
 
+### Mantenimiento Regular de CachyOS
+
+Sigue la Arch Wiki para esto: https://wiki.archlinux.org/title/System_maintenance
+
 ### Elegir un Gestor de Paquetes Gráfico (GUI)
 
 Aunque los gestores de paquetes gráficos ofrecen comodidad, se sabe que algunos causan problemas graves en sistemas de lanzamiento continuo (rolling-release) como CachyOS y deben evitarse para gestionar paquetes del sistema.
 
--   **Pamac:** es conocido por manejar incorrectamente ciertas tareas de gestión de paquetes, como corromper los llaveros de claves de paquetes del sistema. Esto puede llevar a errores de firma PGP que te impidan actualizar tu sistema.
+- **Pamac:** es conocido por manejar incorrectamente ciertas tareas de gestión de paquetes, como corromper los llaveros de claves de paquetes del sistema. Esto puede llevar a errores de firma PGP que te impidan actualizar tu sistema.
+- **Discover (KDE) & Centro de Software de GNOME:** Estas tiendas de aplicaciones usan el backend PackageKit. Aunque generalmente son seguras para gestionar Flatpaks, usarlas para instalar o actualizar **paquetes del sistema** es arriesgado. Los gestores basados en PackageKit también pueden ser inestables o propensos a fallar, lo que podría dejar tu sistema en un estado roto después de una transacción fallida.
 
--   **Discover (KDE) y Centro de Software de GNOME:** Estas tiendas de aplicaciones usan el backend PackageKit. Aunque generalmente son seguras para gestionar Flatpaks, usarlas para instalar o actualizar **paquetes del sistema** es arriesgado. Los gestores basados en PackageKit también pueden ser inestables o propensos a fallar, lo que podría dejar tu sistema en un estado roto después de una transacción fallida.
+Para máxima estabilidad y fiabilidad, **recomendamos encarecidamente** gestionar los paquetes del sistema a través de la línea de comandos con `pacman`
 
-Para máxima estabilidad y fiabilidad, **recomendamos encarecidamente** gestionar los paquetes del sistema a través de la línea de comandos con `pacman`.
-
-Si prefieres una interfaz gráfica, los front-ends gráficos como **[Octopi](/es/configuration/post_install_setup/#actualizando-el-sistema)** o el **Instalador de Paquetes de CachyOS** se consideran alternativas seguras, ya que son envoltorios (wrappers) más directos de la funcionalidad de pacman.
+Si prefieres una interfaz gráfica, front-ends gráficos como **[Shelly](/es/configuration/post_install_setup/#actualizando-el-sistema)** o el **Instalador de Paquetes de CachyOS** se consideran alternativas seguras, ya que son envoltorios (wrappers) más directos de la funcionalidad de pacman.

@@ -38,7 +38,7 @@ Example: EEVDF or BORE.
 ## How to Launch and Manage the Scheduler
 
 :::note
-Both `scxctl` and `scx_loader` require administrative previleges to start/stop/switch schedulers.
+Both `scxctl` and `scx_loader` require administrative privileges to start/stop/switch schedulers.
 
 Therefore you'll need to run them with `sudo` or using a polkit agent that grants the necessary permissions.
 
@@ -256,7 +256,7 @@ Prioritizes keeping tasks on the same CPU to maintain cache locality, while also
 - Use cases:
   - Cache-intensive workloads
   - Systems with a large amount of CPUs
-  - Gaming: Its known to work surprinsingly well in certain games, although your mileage may vary
+  - Gaming: Works surprisingly well in certain games, although your mileage may vary.
   - Server: Good for general purpose server workloads due to its scalability and locality optimizations.
   - Can be used for desktop usage as well.
 
@@ -554,6 +554,25 @@ When `scx_loader` is running with systemd hardening that restricts socket famili
 :::note
 scx_flow does **not** have scx_loader profile modes (Gaming, Power Save, Low Latency, Server). Every scheduling decision is derived directly from task budget — no profiles needed.
 :::
+
+### [scx_forge](<https://github.com/sched-ext/scx/tree/main/scheds/rust/scx_forge>)
+
+**Developed by: Andrea Righi (arighi [GitHub](<https://github.com/arighi>))**
+
+- Production Ready? <Icon name="close" color="var(--sl-color-text-accent)" size="2rem" />
+
+scx_forge contains two parts:
+
+1. A base AI-Oriented scheduler that is designed to be used in conjunction with the second part.
+2. Agent intended to be used with the base scheduler to provide a more AI-oriented scheduling experience, plus optimization in place by the agent itself.
+
+The agent allows setting up your AI model, workload you want to optimize for and the overall goal you want to achieve. The agent will then try to optimize the scheduler for your specific workload and goal.
+
+How? via the [spec.toml file](https://github.com/sched-ext/scx/blob/main/tools/scx_forge_agent/spec.toml) which is used to start the optimization loop.
+
+Basically this scheduler is perfect for those who want to optimize an specific workload by an AI agent.
+
+To learn more about it, check the [scx_forge_agent README](https://github.com/sched-ext/scx/tree/main/tools/scx_forge_agent).
 
 ### [scx_lavd](<https://github.com/sched-ext/scx/tree/main/scheds/rust/scx_lavd>)
 

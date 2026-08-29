@@ -2,6 +2,12 @@
 title: 行動規範
 ---
 
+:::note
+このページは [Contributor Covenant](https://www.contributor-covenant.org/translations) の公式日本語訳を引用しています。同一の文章はこちらから確認することができます。
+
+[コントリビューター行動規範 2.0 日本語版](https://www.contributor-covenant.org/ja/version/2/0/code_of_conduct/code_of_conduct.md)
+:::
+
 # コントリビューター行動規範
 
 ## 私たちの約束
@@ -73,10 +79,10 @@ title: 行動規範
 
 ## 帰属
 
-この行動規範は、<https://www.contributor-covenant.org/version/2/0/code_of_conduct.html> で利用可能な [Contributor Covenant][homepage] バージョン2.0 を基に作成されています。
+この行動規範は、[https://www.contributor-covenant.org/version/2/0/code_of_conduct.html](<https://www.contributor-covenant.org/version/2/0/code_of_conduct.html>) で利用可能な [Contributor Covenant][homepage] バージョン2.0 を基に作成されています。
 
-コミュニティへの影響ガイドラインは[Mozilla's code of conduct enforcement ladder](https://github.com/mozilla/diversity)に適合しています。
+コミュニティへの影響ガイドラインは [Mozilla's code of conduct enforcement ladder](https://github.com/mozilla/diversity) に適合しています。
 
-[homepage]: https://www.contributor-covenant.org
+[homepage](https://www.contributor-covenant.org)
 
-この行動規範に関する一般的な質問への回答については、<https://www.contributor-covenant.org/faq> のFAQを参照してください。翻訳は<https://www.contributor-covenant.org/translations> で入手できます。
+この行動規範に関する一般的な質問への回答については、[FAQ](<https://www.contributor-covenant.org/faq>) をご覧ください。翻訳は [https://www.contributor-covenant.org/translations](<https://www.contributor-covenant.org/translations>) で入手できます。
